@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://howtodoinjava.com/log4j2/log4j-2-xml-configuration-example/ -->
+<Configuration monitorinterval="30" status="info" strict="true">
+    <Properties>
+        <Property name="filename">log/app.log</Property>
+    </Properties>
+    <Appenders>
+        <Appender type="Console" name="Console">
+            <!-- <Layout type="PatternLayout" pattern="%d %p [%t] %m%n" /> -->
+            <Layout type="PatternLayout" pattern="%d{HH:mm:ss} %6p [%c] %m%n" />
+        </Appender>
+        <Appender type="File" name="File" fileName="${filename}">
+            <Layout type="PatternLayout" pattern="%d %p %C{1.} [%t] %m%n" />
+        </Appender>
+    </Appenders>
+    <Loggers>
+        <!-- Modify logging levels of Loggers -->
+        <!--<Logger name="com.memorynotfound" level="debug"/>-->
+        <!--<Logger name="com.mchange.v2.c3p0" level="warn"/>-->
+        <!--<Logger name="org.jboss.ejb3.timerservice.jboss.JBossTimerServiceFactory" level="ERROR"/>-->
+        <!--<Logger name="org.hibernate.ejb.Ejb3Configuration" level="ERROR"/>-->
+
+        <!-- SQL statements and parameters -->
+        <Logger name="org.hibernate" level="warn"/>
+        <Logger name="org.hibernate.SQL" level="warn"/>
+        <!--<Logger name="org.hibernate.type" level="trace"/>-->
+        <Logger name="org.hibernate.type.descriptor.sql" level="warn"/>
+        <Logger name="org.hibernate.stat" level="warn"/>
+        <Logger name="org.hibernate.tool" level="error"/>
+
+
+        <Logger name="org.springframework.boot" level="warn"/>
+        <Logger name="org.springframework.core" level="warn"/>
+        <Logger name="org.springframework.jdbc" level="warn"/>
+        <Logger name="org.springframework.beans" level="warn"/>
+        <Logger name="org.springframework.beans.factory" level="warn"/>
+        <Logger name="org.springframework.data" level="warn"/>
+        <Logger name="org.springframework.context" level="warn"/>
+        <Logger name="org.springframework.orm" level="warn"/>
+        <Logger name="org.springframework.jmx" level="warn"/>
+
+        <Logger name="org.jboss.logging" level="warn"/>
+
+
+        <Logger name="org.quartz.core" level="warn"/>
+
+
+        <!-- Hikari transaction pool -->
+        <!-- https://github.com/brettwooldridge/HikariCP/blob/dev/README.md -->
+        <Logger name="com.zaxxer" level="info"/>
+
+
+        <Logger name="hsqldb.db" level="warn"/>
+
+
+        <Root level="debug">
+
+            <!-- Which appenders to use -->
+            <!--<AppenderRef ref="File" />-->
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>
+
+
+<!--
+    Formatter example:
+    %5p [%t] - %d{yyyy-MM-dd HH:mm:ss.SSS}; - (%F:%L) - %m%n
+
+    %5p: It writes the level in the log. The 5 in the %5p is to set the width of the field to the 5 characters
+    %d{yyyy-MM-dd HH:mm:ss.SSS}: It writes the date in the given date-time format
+    %t: It writes the method name in the log
+    %C: It writes the absolute class name (For e.g. com.jcg.log4j2.demo) in the log
+    %c: Category name (or logger name)
+    %m%n: It writes the message to the log
+    %L: It writes the line number in the log
+    %F: It writes the class name in the log
+
+    https://www.codejava.net/coding/common-conversion-patterns-for-log4js-patternlayout
+-->

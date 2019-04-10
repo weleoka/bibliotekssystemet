@@ -1,0 +1,69 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'se.ltu.studentgruppvt19'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    // Required for disabling included logger in spring which conflicts with log4j2
+    // https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html#howto-configure-log4j-for-logging
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+
+    // // TESTING
+    //testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+
+    // // LOGGING
+    // Spring boot starter for log4j2
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.1.4.RELEASE'
+
+    // log4j2 for logging web containers
+    compile group: 'org.apache.logging.log4j', name: 'log4j-web', version: '2.11.2'
+
+    // Adaptor for java system logging to log4j2
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-jul', version: '2.11.2'
+    
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+
+    // // Other dependencies
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
+    //compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+
+}
